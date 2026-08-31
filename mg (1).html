@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG 맞춤형 대출 상환 계산기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Pretendard', sans-serif; }
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar { height: 8px; width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100">
+        <!-- 헤더 영역 -->
+        <div class="bg-[#004B87] text-white p-6 sm:p-8 text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-20 h-20 bg-[#00A5E5] opacity-20 rounded-full blur-lg"></div>
+            <h1 class="text-2xl sm:text-3xl font-bold relative z-10 tracking-tight">MG 맞춤형 대출 상환 계산기</h1>
+            <p class="text-blue-100 mt-2 text-sm sm:text-base relative z-10">고객님의 든든한 금융 파트너, 새마을금고</p>
+        </div>
+        
+        <div class="p-6 sm:p-8 space-y-6">
+            
+            <!-- 에러 메시지 표시 영역 -->
+            <div id="errorMsg" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-md text-sm font-medium"></div>
+
+            <!-- 대출 금액 입력 -->
+            <div>
+                <label class="block font-semibold text-[#004B87] mb-2">대출 금액 <span class="text-slate-400 text-sm font-normal ml-1">(만원 단위)</span></label>
+                <div class="relative">
+                    <input type="number" id="loanAmount" placeholder="예: 1000 (1천만원)" min="1" 
+                           class="w-full p-3 pl-4 pr-12 border border-slate-300 rounded-xl focus:outline-none focus:border-[#00A5E5] focus:ring-1 focus:ring-[#00A5E5] transition-all text-lg font-medium text-slate-800 placeholder-slate-400">
+                    <span class="absolute right-4 top-3.5 text-slate-400 font-medium">만원</span>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <button type="button" onclick="addAmount(100)" class="flex-1 py-2 px-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-[#004B87] hover:border-blue-200 transition-colors shadow-sm active:scale-95">+ 100만</button>
+                    <button type="button" onclick="addAmount(500)" class="flex-1 py-2 px-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-[#004B87] hover:border-blue-200 transition-colors shadow-sm active:scale-95">+ 500만</button>
+                    <button type="button" onclick="addAmount(1000)" class="flex-1 py-2 px-1 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-[#004B87] hover:border-blue-200 transition-colors shadow-sm active:scale-95">+ 1,000만</button>
+                    <button type="button" onclick="clearAmount()" class="flex-1 py-2 px-1 bg-slate-100 border border-slate-200 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-200 transition-colors shadow-sm active:scale-95">초기화</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- 대출 기간 -->
+                <div>
+                    <label class="block font-semibold text-[#004B87] mb-2">대출 기간</label>
+                    <div class="flex gap-2">
+                        <input type="number" id="loanTerm" placeholder="숫자 입력" min="1" 
+                               class="flex-1 w-full p-3 border border-slate-300 rounded-xl focus:outline-none focus:border-[#00A5E5] focus:ring-1 focus:ring-[#00A5E5] transition-all text-lg font-medium text-slate-800 placeholder-slate-400">
+                        <select id="termUnit" class="w-24 sm:w-28 p-3 border border-slate-300 rounded-xl focus:outline-none focus:border-[#00A5E5] focus:ring-1 focus:ring-[#00A5E5] bg-white text-slate-700 font-medium cursor-pointer">
+                            <option value="month">개월</option>
+                            <option value="year">년</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 연 이자율 -->
+                <div>
+                    <label class="block font-semibold text-[#004B87] mb-2">연 이자율 (%)</label>
+                    <div class="relative">
+                        <input type="number" id="interestRate" placeholder="예: 4.5" step="0.1" min="0.1" 
+                               class="w-full p-3 pl-4 pr-10 border border-slate-300 rounded-xl focus:outline-none focus:border-[#00A5E5] focus:ring-1 focus:ring-[#00A5E5] transition-all text-lg font-medium text-slate-800 placeholder-slate-400">
+                        <span class="absolute right-4 top-3.5 text-slate-400 font-medium">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상환 방식 -->
+            <div>
+                <label class="block font-semibold text-[#004B87] mb-3">상환 방식</label>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <label class="flex-1 relative">
+                        <input type="radio" name="repayMethod" value="equal_pmt" class="peer sr-only" checked>
+                        <div class="w-full p-3 sm:p-4 bg-white border-2 border-slate-200 rounded-xl cursor-pointer peer-checked:border-[#004B87] peer-checked:bg-blue-50 hover:bg-slate-50 transition-all text-center">
+                            <span class="font-medium text-slate-700 peer-checked:text-[#004B87]">원리금균등분할</span>
+                        </div>
+                    </label>
+                    <label class="flex-1 relative">
+                        <input type="radio" name="repayMethod" value="equal_prin" class="peer sr-only">
+                        <div class="w-full p-3 sm:p-4 bg-white border-2 border-slate-200 rounded-xl cursor-pointer peer-checked:border-[#004B87] peer-checked:bg-blue-50 hover:bg-slate-50 transition-all text-center">
+                            <span class="font-medium text-slate-700 peer-checked:text-[#004B87]">원금균등분할</span>
+                        </div>
+                    </label>
+                    <label class="flex-1 relative">
+                        <input type="radio" name="repayMethod" value="bullet" class="peer sr-only">
+                        <div class="w-full p-3 sm:p-4 bg-white border-2 border-slate-200 rounded-xl cursor-pointer peer-checked:border-[#004B87] peer-checked:bg-blue-50 hover:bg-slate-50 transition-all text-center">
+                            <span class="font-medium text-slate-700 peer-checked:text-[#004B87]">만기일시상환</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 계산 버튼 -->
+            <button onclick="calculateLoan()" class="w-full py-4 bg-[#004B87] hover:bg-[#003666] text-white font-bold text-lg rounded-xl transition-colors shadow-lg shadow-blue-900/20 active:scale-[0.99] mt-4 flex justify-center items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                계산하기
+            </button>
+
+            <!-- 결과 영역 -->
+            <div id="resultSection" class="hidden mt-10 pt-8 border-t border-slate-200">
+                <h3 class="text-xl font-bold text-[#004B87] mb-4">계산 결과 요약</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 flex flex-col justify-center items-center text-center">
+                        <span class="text-sm font-medium text-slate-500 mb-1">총 대출 금액</span>
+                        <div class="text-xl font-bold text-slate-800"><span id="resTotalAmount" class="text-2xl text-[#004B87]">0</span> 원</div>
+                    </div>
+                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                        <div class="absolute top-0 w-full h-1 bg-[#00A5E5]"></div>
+                        <span class="text-sm font-medium text-slate-500 mb-1">첫 달 상환액</span>
+                        <div class="text-xl font-bold text-slate-800"><span id="resFirstPmt" class="text-2xl text-[#004B87]">0</span> 원</div>
+                    </div>
+                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 flex flex-col justify-center items-center text-center">
+                        <span class="text-sm font-medium text-slate-500 mb-1">총 이자 합계</span>
+                        <div class="text-xl font-bold text-slate-800"><span id="resTotalInterest" class="text-2xl text-[#00A5E5]">0</span> 원</div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-[#004B87] mb-4">월별 상환 스케줄</h3>
+                <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                    <table class="w-full whitespace-nowrap text-right">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="p-3 text-center text-sm font-semibold text-slate-600">회차</th>
+                                <th class="p-3 text-sm font-semibold text-slate-600">납입 원금</th>
+                                <th class="p-3 text-sm font-semibold text-slate-600">납입 이자</th>
+                                <th class="p-3 text-sm font-semibold text-[#004B87]">월 상환금</th>
+                                <th class="p-3 text-sm font-semibold text-slate-600 pr-4">대출 잔액</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleTableBody" class="divide-y divide-slate-100">
+                            <!-- 자바스크립트로 생성됨 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 금액 원터치 버튼 로직
+        function addAmount(amount) {
+            const input = document.getElementById('loanAmount');
+            let currentVal = parseInt(input.value) || 0;
+            input.value = currentVal + amount;
+        }
+
+        // 금액 초기화
+        function clearAmount() {
+            document.getElementById('loanAmount').value = '';
+        }
+
+        // 숫자 콤마 포맷팅 함수
+        function formatKRW(number) {
+            return Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // 메인 계산 로직
+        function calculateLoan() {
+            const amountManWon = parseFloat(document.getElementById('loanAmount').value);
+            const termValue = parseFloat(document.getElementById('loanTerm').value);
+            const termUnit = document.getElementById('termUnit').value;
+            const annualRate = parseFloat(document.getElementById('interestRate').value);
+            const method = document.querySelector('input[name="repayMethod"]:checked').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            // 1. 입력 검증 및 에러 처리 (alert 대신 UI 에러 메시지 사용)
+            if (!amountManWon || !termValue || !annualRate) {
+                errorMsg.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        대출 금액, 기간, 이자율을 모두 정확히 입력해주세요.
+                    </div>
+                `;
+                errorMsg.classList.remove('hidden');
+                document.getElementById('resultSection').classList.add('hidden');
+                return;
+            }
+            errorMsg.classList.add('hidden');
+
+            // 2. 변수 초기화 (만원 -> 원으로 변환)
+            const principal = amountManWon * 10000; 
+            const months = termUnit === 'year' ? termValue * 12 : termValue;
+            const monthlyRate = (annualRate / 100) / 12;
+
+            let totalInterest = 0;
+            let scheduleHtml = '';
+            let balance = principal;
+            let firstMonthPmt = 0;
+
+            // 3. 상환 방식별 로직 계산
+            if (method === 'equal_pmt') {
+                // 원리금균등분할상환
+                const monthlyPmt = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+                firstMonthPmt = monthlyPmt;
+
+                for (let i = 1; i <= months; i++) {
+                    let interest = balance * monthlyRate;
+                    let prinPmt = monthlyPmt - interest;
+
+                    // 마지막 달 단수 차이 보정
+                    if (i === months) {
+                        prinPmt = balance;
+                        interest = balance * monthlyRate;
+                    }
+
+                    totalInterest += interest;
+                    balance -= prinPmt;
+                    if(balance < 0) balance = 0;
+
+                    scheduleHtml += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-3 text-center text-slate-500 font-medium">${i}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(prinPmt)}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(interest)}</td>
+                            <td class="p-3 text-[#004B87] font-semibold">${formatKRW(prinPmt + interest)}</td>
+                            <td class="p-3 text-slate-500 pr-4">${formatKRW(balance)}</td>
+                        </tr>
+                    `;
+                }
+
+            } else if (method === 'equal_prin') {
+                // 원금균등분할상환
+                const monthlyPrinPmt = principal / months;
+                
+                for (let i = 1; i <= months; i++) {
+                    let interest = balance * monthlyRate;
+                    let currentPmt = monthlyPrinPmt + interest;
+                    
+                    if (i === 1) firstMonthPmt = currentPmt;
+                    
+                    let actualPrinPmt = monthlyPrinPmt;
+                    // 마지막 달 단수 차이 보정
+                    if (i === months) {
+                        actualPrinPmt = balance;
+                    }
+
+                    totalInterest += interest;
+                    balance -= actualPrinPmt;
+                    if(balance < 0) balance = 0;
+
+                    scheduleHtml += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-3 text-center text-slate-500 font-medium">${i}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(actualPrinPmt)}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(interest)}</td>
+                            <td class="p-3 text-[#004B87] font-semibold">${formatKRW(actualPrinPmt + interest)}</td>
+                            <td class="p-3 text-slate-500 pr-4">${formatKRW(balance)}</td>
+                        </tr>
+                    `;
+                }
+
+            } else if (method === 'bullet') {
+                // 만기일시상환
+                const monthlyInterest = principal * monthlyRate;
+                firstMonthPmt = monthlyInterest;
+
+                for (let i = 1; i <= months; i++) {
+                    let prinPmt = 0;
+                    let interest = monthlyInterest;
+                    
+                    if (i === months) {
+                        prinPmt = principal;
+                    }
+
+                    totalInterest += interest;
+                    balance -= prinPmt;
+
+                    scheduleHtml += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-3 text-center text-slate-500 font-medium">${i}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(prinPmt)}</td>
+                            <td class="p-3 text-slate-700">${formatKRW(interest)}</td>
+                            <td class="p-3 text-[#004B87] font-semibold">${formatKRW(prinPmt + interest)}</td>
+                            <td class="p-3 text-slate-500 pr-4">${formatKRW(balance)}</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // 4. 결과 렌더링
+            document.getElementById('resTotalAmount').innerText = formatKRW(principal);
+            document.getElementById('resFirstPmt').innerText = formatKRW(firstMonthPmt);
+            document.getElementById('resTotalInterest').innerText = formatKRW(totalInterest);
+            document.getElementById('scheduleTableBody').innerHTML = scheduleHtml;
+            
+            // 결과 영역 표시 및 스크롤 부드럽게 이동
+            const resultSec = document.getElementById('resultSection');
+            resultSec.classList.remove('hidden');
+            
+            // 약간의 딜레이 후 스크롤 (렌더링 안정화)
+            setTimeout(() => {
+                resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>

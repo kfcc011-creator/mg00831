@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG 상생 희망드림 대출 기획 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        mgblue: '#004b87',
+                        mggreen: '#00a44f',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- Top Navigation -->
+    <nav class="bg-mgblue text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2">
+                        <!-- Logo Placeholder -->
+                        <div class="w-8 h-8 bg-mggreen rounded-full flex items-center justify-center font-bold text-lg shadow-inner">
+                            MG
+                        </div>
+                        <span class="font-bold text-xl tracking-tight">신상품 기획 대시보드</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-medium opacity-80"><i class="fa-solid fa-building-columns mr-1"></i> 금융상품개발팀</span>
+                    <div class="h-8 w-8 rounded-full bg-white text-mgblue flex items-center justify-center font-bold border-2 border-mggreen">
+                        수석
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header Section -->
+        <div class="mb-8 animate-fade-in-up">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">MG 상생 희망드림 대출 <span class="text-sm font-normal px-2 py-1 bg-gray-200 text-gray-600 rounded-full align-middle">(가칭)</span></h1>
+            <p class="text-gray-600">새마을금고의 지역 밀착 특성을 살린 소상공인 금융비용 완화 특화 여신상품</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between animate-fade-in-up hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-sm font-semibold text-gray-500">최대 대출 한도</h3>
+                    <div class="p-2 bg-blue-50 text-mgblue rounded-lg"><i class="fa-solid fa-won-sign"></i></div>
+                </div>
+                <div>
+                    <span class="text-3xl font-bold text-gray-900">5,000<span class="text-xl font-medium text-gray-600 ml-1">만원</span></span>
+                    <p class="text-xs text-gray-400 mt-2">* 신용평점 및 매출액 차등 적용</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between animate-fade-in-up delay-100 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-sm font-semibold text-gray-500">최대 우대 금리</h3>
+                    <div class="p-2 bg-green-50 text-mggreen rounded-lg"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                </div>
+                <div>
+                    <span class="text-3xl font-bold text-gray-900">1.5<span class="text-xl font-medium text-gray-600 ml-1">%p</span></span>
+                    <p class="text-xs text-gray-400 mt-2">* 3가지 요건 충족 시 합산 적용</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between animate-fade-in-up delay-200 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-sm font-semibold text-gray-500">대출 상환 조건</h3>
+                    <div class="p-2 bg-purple-50 text-purple-600 rounded-lg"><i class="fa-regular fa-calendar-check"></i></div>
+                </div>
+                <div>
+                    <span class="text-2xl font-bold text-gray-900">최장 5년</span>
+                    <p class="text-sm font-medium text-gray-600 mt-1">1년 거치 4년 분할상환</p>
+                    <p class="text-xs text-gray-400 mt-1">* 초기 이자 상환 부담 최소화</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between animate-fade-in-up delay-300 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-sm font-semibold text-gray-500">보증서 담보 비율</h3>
+                    <div class="p-2 bg-orange-50 text-orange-600 rounded-lg"><i class="fa-solid fa-shield-halved"></i></div>
+                </div>
+                <div>
+                    <span class="text-3xl font-bold text-gray-900">85<span class="text-xl font-medium text-gray-600 ml-1">%</span></span>
+                    <p class="text-xs text-gray-400 mt-2">* 지역 신용보증재단 연계</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Grids -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Left Column: Background & Target -->
+            <div class="lg:col-span-1 flex flex-col gap-6">
+                <!-- Background -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up">
+                    <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-bullseye text-mgblue mr-2"></i>기획 배경 및 타깃</h2>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-sm font-bold text-mgblue mb-1">기획 배경</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">고금리 기조와 지역 경기 둔화 장기화로 인해 골목상권 소상공인들의 금융비용 부담이 임계점 도달. 지역 밀착 네트워크를 활용한 구원투수 역할 필요.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-700 mb-2">핵심 타깃 고객</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start text-sm text-gray-600">
+                                    <i class="fa-solid fa-check text-mggreen mt-1 mr-2"></i>
+                                    <span>지역 내 전통시장 상점가 상인</span>
+                                </li>
+                                <li class="flex items-start text-sm text-gray-600">
+                                    <i class="fa-solid fa-check text-mggreen mt-1 mr-2"></i>
+                                    <span>지자체 지역화폐 가맹 소상공인</span>
+                                </li>
+                                <li class="flex items-start text-sm text-gray-600">
+                                    <i class="fa-solid fa-check text-mggreen mt-1 mr-2"></i>
+                                    <span>사업장 소재지 내 실질 사업 6개월 이상 영위자</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Column: Product Specs & Interest Structure -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up delay-100">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-percent text-mgblue mr-2"></i>우대금리 구조 및 조건</h2>
+                
+                <p class="text-sm text-gray-600 mb-6">지역 소상공인의 실질적인 혜택 제공을 위해 새마을금고 인프라 이용 및 지역 상권 참여도에 따른 금리 우대 제공</p>
+
+                <div class="space-y-5">
+                    <!-- Progress item 1 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-store mr-2 text-gray-400"></i>지역화폐 매출 입금 지정</span>
+                            <span class="text-sm font-bold text-mggreen">0.5%p</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2.5">
+                            <div class="bg-mggreen h-2.5 rounded-full" style="width: 33.3%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">지역화폐 매출 대금을 새마을금고 계좌로 입금 지정 시</p>
+                    </div>
+
+                    <!-- Progress item 2 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-users mr-2 text-gray-400"></i>전통시장 상인회 소속</span>
+                            <span class="text-sm font-bold text-mggreen">0.5%p</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2.5">
+                            <div class="bg-mggreen h-2.5 rounded-full" style="width: 33.3%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">전통시장 상인회에 소속된 조합원 가입 시</p>
+                    </div>
+
+                    <!-- Progress item 3 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-mobile-screen mr-2 text-gray-400"></i>MG더뱅킹 및 자동이체</span>
+                            <span class="text-sm font-bold text-mggreen">0.5%p</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2.5">
+                            <div class="bg-mggreen h-2.5 rounded-full" style="width: 33.3%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">'MG더뱅킹' 앱 가입 및 공과금 등 자동이체 3건 이상 등록 시</p>
+                    </div>
+                </div>
+
+                <!-- Total Highlight -->
+                <div class="mt-8 bg-blue-50 border border-blue-100 rounded-lg p-4 flex justify-between items-center">
+                    <span class="font-bold text-mgblue">최대 우대금리 합계</span>
+                    <span class="text-2xl font-extrabold text-mgblue">연 1.5%p</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Grids: Risk & Effects -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Risk Management -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up delay-200">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-shield-virus text-red-500 mr-2"></i>리스크 관리 방안</h2>
+                <ul class="space-y-4">
+                    <li class="flex p-3 bg-gray-50 rounded-lg">
+                        <div class="flex-shrink-0 mt-1">
+                            <i class="fa-solid fa-handshake-angle text-blue-500 text-lg"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-bold text-gray-800">신용보증재단 연계</h4>
+                            <p class="text-sm text-gray-600 mt-1">지역 신용보증재단 협약을 통한 85% 이상 부분보증서 담보 대출 취급으로 금고 손실 위험 대폭 경감</p>
+                        </div>
+                    </li>
+                    <li class="flex p-3 bg-gray-50 rounded-lg">
+                        <div class="flex-shrink-0 mt-1">
+                            <i class="fa-solid fa-chart-line text-orange-500 text-lg"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-bold text-gray-800">부실 예방 모니터링</h4>
+                            <p class="text-sm text-gray-600 mt-1">기업신용평가시스템(CSS) 활용 조기경보 강화 및 매출 급감 차주 대상 선제적 채무조정(만기연장 등) 안내</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Expected Effects -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up delay-300">
+                <h2 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-leaf text-mggreen mr-2"></i>기대 효과</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Financial -->
+                    <div class="border border-gray-200 rounded-lg p-4 text-center hover:border-mgblue transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-coins text-mgblue text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">재무적 효과</h4>
+                        <p class="text-xs text-gray-600">소상공인 결제계좌 유치를 통한 저원가성 수신 확대 및 우량 보증서 기반 여신 자산 증대</p>
+                    </div>
+                    <!-- Non-Financial -->
+                    <div class="border border-gray-200 rounded-lg p-4 text-center hover:border-mggreen transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
+                            <i class="fa-regular fa-handshake text-mggreen text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">비재무적 효과</h4>
+                        <p class="text-xs text-gray-600">'지역사회와 함께하는 새마을금고' ESG 상생 브랜드 제고 및 확실한 주거래 금융기관 위상 확립</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</body>
+</html>
